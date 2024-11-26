@@ -334,7 +334,7 @@ def parse_to_links(input,is_json=True):
     
     sections = soup.find_all('h2')
     for section in sections:
-        if section.span in bad_sections:
+        if section['id' in bad_sections:
 
             # Clean out the divs
             div_siblings = section.find_next_siblings('div')
