@@ -316,6 +316,8 @@ def get_page_raw_content(page_title, endpoint='en.wikipedia.org/w/api.php', redi
     
     return markup
 
+
+
 def parse_to_links(input,is_json=True):
     # Initialize an empty list to store the links
     outlinks_list = []
@@ -334,8 +336,10 @@ def parse_to_links(input,is_json=True):
     
     sections = soup.find_all('h2')
     for section in sections:
-        if section['id' in bad_sections:
-
+#         print(section) #<h2 id="References">References</h2>
+#         print(type(section)) #<class 'bs4.element.Tag'>
+#         if section.span['id'] in bad_sections:#<------------------------------THIS IS THE PROBLEM
+        if section['id'] in bad_sections:
             # Clean out the divs
             div_siblings = section.find_next_siblings('div')
             for sibling in div_siblings:
@@ -345,7 +349,8 @@ def parse_to_links(input,is_json=True):
             ul_siblings = section.find_next_siblings('ul')
             for sibling in ul_siblings:
                 sibling.clear()
-
+                
+    
     # Delete tags associated with templates
     for tag in soup.find_all('tr'):
         tag.replace_with('')
@@ -370,6 +375,7 @@ def parse_to_links(input,is_json=True):
                         outlinks_list.append(title)
     
     return outlinks_list
+
         
 def get_revision_raw_content(revid, endpoint='en.wikipedia.org/w/api.php', redirects=1):
     """Takes a revision ID and returns the raw HTML.
@@ -877,7 +883,7 @@ def get_category_subcategories(category_title,endpoint='en.wikipedia.org/w/api.p
             
     return members
 
-def get_category_members(category_title,depth=1,endpoint='en.wikipedia.org/w/api.php',namespace=0):
+def get_category_members(category_title,depth=1,endpoint='en.wikipedia.org/w/api.php',namespace=0,prepend=True):
     """The function accepts a category_title and returns a list of category members
     
     category_title - a string (including "Category:" prefix) of the category named
@@ -896,7 +902,7 @@ def get_category_members(category_title,depth=1,endpoint='en.wikipedia.org/w/api
     category_title = category_title.replace(' ','_')
     
     # Make sure "Category:" appears in the title
-    if 'Category:' not in category_title:
+    if prepend and 'Category:' not in category_title:
         category_title = 'Category:' + category_title
     
     query_url = "https://{0}".format(endpoint)
