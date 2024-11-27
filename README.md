@@ -1,7 +1,7 @@
 # Cross-Language-Evolution-of-Divergent-Collective-Memory-Around-the-Arab-Spring
 This is the Repo for my code that is for my paper with Dr. Brian Keegan, "Cross-Language Evolution of Divergent Collective Memory Around the Arab Spring"
 
-the last time this data was gathered was 06/19/25
+the last time this data was gathered was 06/19/24
 the figures reflect this
 
 Abstract:
